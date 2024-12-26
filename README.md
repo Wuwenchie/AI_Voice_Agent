@@ -3,7 +3,7 @@
 ### Requirements  
 Python 3.11
 
-### **Installation**  
+### Installation  
 google.generativeai  
 gtts  
 transformers  
