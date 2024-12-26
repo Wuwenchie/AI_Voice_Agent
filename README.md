@@ -9,5 +9,5 @@ google.generativeai
 gtts  
 transformers    
 ### Model  
-    Audio-to-text : whisper-large-v3  
-    Gemini AI : gemini-1.5-pro
+Audio-to-text : whisper-large-v3  
+Gemini AI : gemini-1.5-pro
