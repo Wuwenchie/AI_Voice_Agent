@@ -2,6 +2,7 @@ import struct
 from pvrecorder import PvRecorder
 import keyboard
 import wave
+from pydub import AudioSegment
 
 recorder = PvRecorder(device_index=-1, frame_length=512)
 audio = []
