@@ -33,7 +33,7 @@ pipe = pipeline(
     device=device,
 )
 
-  
+# 輸入音訊  
 if len(sys.argv)>1:
     audiofile = sys.argv[1]
 else:
