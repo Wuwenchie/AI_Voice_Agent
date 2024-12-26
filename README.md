@@ -7,7 +7,7 @@ Google api key  -->  https://aistudio.google.com/app/apikey
 ### Installation  
 google.generativeai  
 gtts  
-transformers
+transformers  
     pip install google.generativeai gtts transformers  
 ### Model  
 Audio-to-text : whisper-large-v3  
