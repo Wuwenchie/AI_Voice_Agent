@@ -4,10 +4,6 @@ from gtts import gTTS
 import sys
 import torch
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
-import struct
-from pvrecorder import PvRecorder
-import keyboard
-# import speech_recognition as sr
 
 
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
