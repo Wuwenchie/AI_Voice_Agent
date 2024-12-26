@@ -2,10 +2,10 @@
 
 ### Requirements  
 Python 3.11  
-torch  
 Google api key  -->  https://aistudio.google.com/app/apikey  
 ### Installation  
 google.generativeai  
+torch  
 gtts  
 transformers    
 ### Model  
