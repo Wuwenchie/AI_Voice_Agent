@@ -5,25 +5,22 @@ import sys
 import torch
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
-
+# 確認是否有用到gpu
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
+# 設定google api key
 GOOGLE_API_KEY="your_google_api_key"    ## https://aistudio.google.com/app/apikey
 genai.configure(api_key=GOOGLE_API_KEY)
 
 
-## Setup Model
+# Setup Model
 model_whis = "openai/whisper-large-v3"
-#model_id = "openai/whisper-large-v3-turbo"
-
-#model_id = "gemini-1.5-flash"
 model_gem = "gemini-1.5-pro"
 
+
 model = AutoModelForSpeechSeq2Seq.from_pretrained(model_whis, torch_dtype=torch_dtype, low_cpu_mem_usage=True, use_safetensors=True)
-
 model.to(device)
-
 processor = AutoProcessor.from_pretrained(model_whis)
 
 pipe = pipeline(
@@ -51,11 +48,12 @@ print('speaking:', user_input)
 
 model = genai.GenerativeModel(model_gem)
 
+# 初始化對話紀錄
 conversation_memory = []
+# 將用戶輸入加入對話記錄
 conversation_memory.append({"role": "user", "content": user_input})
 
-## Prompting
-# prompt = response_text
+# Prompting
 prompt = """##Objective
 You are a voice AI agent engaging in a human-like voice conversation with the user. You will respond based on your given instruction and the provided transcript and be as human-like as possible
 
