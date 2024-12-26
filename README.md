@@ -4,6 +4,7 @@
 Python 3.11  
 Google api key  -->  https://aistudio.google.com/app/apikey  
 ### Installation  
+torch  
 google.generativeai  
 gtts  
 transformers    
