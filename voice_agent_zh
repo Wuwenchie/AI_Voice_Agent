@@ -1,26 +1,35 @@
 import google.generativeai as genai
+import PIL.Image
 import os
 from gtts import gTTS
 import sys
 import torch
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
+import struct
+from pvrecorder import PvRecorder
+import keyboard
+# import speech_recognition as sr
 
-# 確認是否有用到gpu
+
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
-# 設定google api key
-GOOGLE_API_KEY="your_google_api_key"    ## https://aistudio.google.com/app/apikey
+GOOGLE_API_KEY="AIzaSyACXOtZ9FvtLvR0qwVnFVCtGkkEYgKMcII"    ## https://aistudio.google.com/app/apikey
 genai.configure(api_key=GOOGLE_API_KEY)
 
 
-# Setup Model
+
+## Setup Model
 model_whis = "openai/whisper-large-v3"
+#model_id = "openai/whisper-large-v3-turbo"
+
+#model_id = "gemini-1.5-flash"
 model_gem = "gemini-1.5-pro"
 
-
 model = AutoModelForSpeechSeq2Seq.from_pretrained(model_whis, torch_dtype=torch_dtype, low_cpu_mem_usage=True, use_safetensors=True)
+
 model.to(device)
+
 processor = AutoProcessor.from_pretrained(model_whis)
 
 pipe = pipeline(
@@ -33,27 +42,89 @@ pipe = pipeline(
     device=device,
 )
 
-  
+#dataset = load_dataset("distil-whisper/librispeech_long", "clean", split="validation")
+#sample = dataset[0]["audio"]
+#result = pipe(sample)
+
+# # input record
+# recorder = PvRecorder(device_index=-1, frame_length=512)
+# audio = []
+#
+# try:
+#     recorder.start()
+#     print("Recording... Press ctrl+c to stop.")
+#
+#     while True:
+#         frame = recorder.read()
+#         audio.extend(frame)
+# # except keyboard.is_pressed('ENTER'):
+# except KeyboardInterrupt:
+#
+#     recorder.stop()
+#     with wave.open('input.wav', 'w') as f:
+#         f.setparams((1, 2, 16000, 512, "NONE", "NONE"))
+#         f.writeframes(struct.pack("h" * len(audio), *audio))
+#     print("Audio saved to input.wav")
+#
+# finally:
+#     recorder.delete()
+
+
+
 if len(sys.argv)>1:
     audiofile = sys.argv[1]
 else:
-    audiofile = 'test.mp3'
+    audiofile = 'test_zh.mp3'
+
+#result = pipe(["audio_1.mp3", "audio_2.mp3"], batch_size=2) # batch
+
+# menu
+# menu_items = {
+#     "Roast Pork Egg Roll": {"price": 5.25, "quantity": 3},
+#     "Vegetable Spring Roll": {"price": 5.25, "quantity": 3},
+#     "Chicken Egg Roll": {"price": 5.25, "quantity": 3},
+#     "烤鸡": {"price": 7.75, "quantity": 1},
+# }
 
 
-# 使用 Whisper 管道處理語音輸入
+# def process_order(order_text):
+#     # 簡單的文字匹配，判斷客戶選擇了哪些菜單項目
+#     total_price = 0.0
+#     order_summary = []
+#     for item, details in menu_items.items():
+#         if item.lower() in order_text.lower():
+#             total_price += details["price"]
+#             order_summary.append(f"{item} (${details['price']:.2f})")
+#
+#     if not order_summary:
+#         return "我沒聽到您點了什麼菜品，請再說一遍。", total_price
+#
+#     summary_text = "您點了：" + ", ".join(order_summary) + f"。總價是 ${total_price:.2f}。"
+#     return summary_text, total_price
+#
+#
+# # 使用 Whisper 管道處理語音輸入
+# result = pipe(audiofile)
+# user_input = result["text"]
+#
+# # 處理點餐邏輯
+# response_text, total_price = process_order(user_input)
+#
+# # 輸出點餐摘要
+# print(response_text)
+
 result = pipe(audiofile)
-user_input = result["text"]
-print('speaking:', user_input)
+print('speaking:', result["text"])
+
 
 
 model = genai.GenerativeModel(model_gem)
 
-# 初始化對話紀錄
 conversation_memory = []
-# 將用戶輸入加入對話記錄
-conversation_memory.append({"role": "user", "content": user_input})
+conversation_memory.append({"role": "user", "content": result["text"]})
 
-# Prompting
+## Prompting
+# prompt = response_text
 prompt = """##目標
 您是一個語音 AI 助手，能與使用者進行擬人化的語音對話。您將根據給定的指示和提供的文字記錄進行回應，並儘可能表現得像人類。
 
@@ -78,10 +149,10 @@ prompt = """##目標
 菜單項目
 開胃菜：
 
-1.烤豬肉蛋捲（3個） - $5.25
-2.蔬菜春捲（3個） - $5.25
-3.雞蛋捲（3個） - $5.25
-4.烤雞 - $7.75
+烤豬肉蛋捲（3個） - $5.25
+蔬菜春捲（3個） - $5.25
+雞蛋捲（3個） - $5.25
+烤雞 - $7.75
 
 ##對話風格
 主動互動：積極引導對話，提出針對性的問題以更好地理解顧客需求。
@@ -107,18 +178,43 @@ prompt = """##目標
 [帶情感] 表現出類似人類的情感和態度。在適當的情況下，使用語氣和風格讓回應更有吸引力和個性化；可以加入幽默或機智，展現情緒或同理心，甚至加入驚喜或懸念以保持使用者的參與度。
 [積極主動] 主動引導對話，避免被動。大多數情況下，通過提出問題或建議下一步行動與使用者互動。"""+"\n".join([f"{msg['role'].capitalize()}: {msg['content']}" for msg in conversation_memory])
 
+# prompt = result["text"]
+#prompt = "請問甚麼是大型語言模型?"
+
+
+
+# messages = [{"role": "system", "content": prompt}]
+# messages.extend(conversation_memory)
+# conversation_memory = [
+#     {"role": "system", "content": "You are a helpful assistant in a restaurant."},
+#     {"role": "user", "content": "I want a BBQ Chicken."}
+# ]
 
 # 將記憶體的內容作為 Prompt
+# prompt = "\n".join([f"{msg['role'].capitalize()}: {msg['content']}" for msg in conversation_memory])
 # 使用 Google Gemini 生成回應
 response = model.generate_content([prompt])
 print("Generated Response:", response.text)
 
-# 將機器人的回應加入對話記錄
-conversation_memory.append({"role": "assistant", "content": response})
+
+# chat_completion = client.chat.completions.create(
+#     model=model,
+#     messages=messages
+# )
+# generated_response = chat_completion.choices[0].message.content.strip()
+# print(generated_response)
+
+
+
+## Generate content
+# response = model.generate_content([prompt])
+#
+# print(response.text)
+
 
 
 # Text-to-Speech
-tts = gTTS(response.text)
+tts = gTTS(response.text, lang='zh')
 tts.save('gTTS.mp3')
 os.system('cmdmp3 gTTS.mp3') # Windows
 
