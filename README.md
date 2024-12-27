@@ -21,7 +21,7 @@ Gemini AI : gemini-1.5-pro
     conda activate AI  
 ### Install the library above using below command      
     pip install torch google.generativeai gtts transformers  
-### Record your prompt  
-python recorder.py  
-### Run the code using below command  
-python voice_agent_en.py (or python voice_agent_zh.py)
+### Record your prompt (if you just wnat ot test the code, you can use the example .mp3 file and skip this step)  
+    python recorder.py  
+### Run the code using below command    
+    python voice_agent_en.py (or python voice_agent_zh.py)
