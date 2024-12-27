@@ -26,7 +26,7 @@ Gemini AI : gemini-1.5-pro
 ### Install the library above using below command      
     pip install torch google.generativeai gtts transformers  
 ***
-   pip install struct pvrecorder wave pydub  
+    pip install struct pvrecorder wave pydub  
 ### Record your prompt  
 If you just wnat to test the code, you can use the example .mp3 file and skip this step  
 
