@@ -17,17 +17,17 @@ Audio-to-text : whisper-large-v3
 Gemini AI : gemini-1.5-pro
 
 ## Step to run  
-### Setup Google api key  
-### Create a virtualenv  
+### 1. Setup Google api key  
+### 2. Create a virtualenv  
     conda create --name AI python=3.11  
 ("AI" is the name of your virtualenv, you can use another name)  
 
     conda activate AI  
-### Install the library above using below command      
+### 3. Install the library above using below command      
     pip install torch google.generativeai gtts transformers  
 ***
     pip install struct pvrecorder wave pydub  
-### Record your prompt  
+### 4. Record your prompt  
 If you just wnat to test the code, you can use the example .mp3 file and skip this step  
 
     python recorder.py  
