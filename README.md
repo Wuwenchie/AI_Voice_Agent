@@ -15,7 +15,7 @@ Gemini AI : gemini-1.5-pro
 ## Step to run  
 **Setup Google api key**  
 **Create a virtualenv and install the library above using below command**  
-conda create --name AI python=3.11  
+conda create --name AI python=3.11 ("AI is the name of your virtualenv, you can use another name)  
 conda activate AI  
 pip install torch google.generativeai gtts transformers    
 **Run the code using below command**  
