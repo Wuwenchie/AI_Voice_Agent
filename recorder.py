@@ -17,10 +17,10 @@ try:
 
 except KeyboardInterrupt:
     recorder.stop()
-    with wave.open('test.wav', 'w') as f:
+    with wave.open('audio/test.wav', 'w') as f:
         f.setparams((1, 2, 16000, 512, "NONE", "NONE"))
         f.writeframes(struct.pack("h" * len(audio), *audio))
-        AudioSegment.from_wav("test.wav").export("test.mp3", format="mp3")
+        AudioSegment.from_wav("audio/test.wav").export("audio/test.mp3", format="mp3")
     print("Audio saved to test.mp3")
 
 finally:
