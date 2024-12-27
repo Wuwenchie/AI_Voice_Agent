@@ -31,7 +31,7 @@ Gemini AI : gemini-1.5-pro
 If you just wnat to test the code, you can use the example .mp3 file and skip this step  
 
     python recorder.py  
-### Run the code using below command    
+### Run the code using below command (choose one)    
     python voice_agent_en.py  
 ***
     python voice_agent_zh.py
