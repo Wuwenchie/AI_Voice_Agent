@@ -11,3 +11,8 @@ transformers
 ### Model  
 Audio-to-text : whisper-large-v3  
 Gemini AI : gemini-1.5-pro
+
+##Step to run  
+1.create conda enviromnent  
+    conda create --name AI python=3.5  
+    conda activate AI
