@@ -22,7 +22,7 @@ Gemini AI : gemini-1.5-pro
 ### Install the library above using below command      
     pip install torch google.generativeai gtts transformers  
 ### Record your prompt  
-If you just wnat ot test the code, you can use the example .mp3 file and skip this step  
+If you just wnat to test the code, you can use the example .mp3 file and skip this step  
 
     python recorder.py  
 ### Run the code using below command    
