@@ -32,4 +32,6 @@ If you just wnat to test the code, you can use the example .mp3 file and skip th
 
     python recorder.py  
 ### Run the code using below command    
-    python voice_agent_en.py (or python voice_agent_zh.py)
+    python voice_agent_en.py  
+***
+    python voice_agent_zh.py
