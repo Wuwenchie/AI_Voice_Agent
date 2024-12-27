@@ -1,6 +1,5 @@
 import struct
 from pvrecorder import PvRecorder
-import keyboard
 import wave
 from pydub import AudioSegment
 
