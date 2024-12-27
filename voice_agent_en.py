@@ -37,7 +37,7 @@ pipe = pipeline(
 if len(sys.argv)>1:
     audiofile = sys.argv[1]
 else:
-    audiofile = 'test.mp3'
+    audiofile = 'audio/test.mp3'
 
 
 # 使用 Whisper 管道處理語音輸入
