@@ -7,7 +7,11 @@ Google api key  -->  https://aistudio.google.com/app/apikey
 torch  
 google.generativeai  
 gtts  
-transformers    
+transformers  
+struct  
+pvrecorder  
+wave  
+pydub  
 ### Model  
 Audio-to-text : whisper-large-v3  
 Gemini AI : gemini-1.5-pro
