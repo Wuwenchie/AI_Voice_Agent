@@ -5,11 +5,11 @@ import sys
 import torch
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
-# 確認是否有用到gpu
+# check if the gpu is used
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
-# 設定google api key
+# setup google api key
 GOOGLE_API_KEY="your_google_api_key"    ## https://aistudio.google.com/app/apikey
 genai.configure(api_key=GOOGLE_API_KEY)
 
@@ -33,14 +33,14 @@ pipe = pipeline(
     device=device,
 )
 
-# 輸入音訊  
+# input the audio 
 if len(sys.argv)>1:
     audiofile = sys.argv[1]
 else:
     audiofile = 'example_audio/test.mp3'     #your audio path
 
 
-# 使用 Whisper 管道處理語音輸入
+# use Whisper to handle the voice input
 result = pipe(audiofile)
 user_input = result["text"]
 print('speaking:', user_input)
@@ -48,9 +48,9 @@ print('speaking:', user_input)
 
 model = genai.GenerativeModel(model_gem)
 
-# 初始化對話紀錄
+# initialize the conversation memory
 conversation_memory = []
-# 將用戶輸入加入對話記錄
+# add user input to the conversation memory
 conversation_memory.append({"role": "user", "content": user_input})
 
 # Prompting
@@ -95,12 +95,12 @@ Conversational Style: Your communication style should be proactive and lead the 
 - [Be proactive] Lead the conversation and do not be passive. Most times, engage users by ending with a question or suggested next step."""+"\n".join([f"{msg['role'].capitalize()}: {msg['content']}" for msg in conversation_memory])
 
 
-# 將記憶體的內容作為 Prompt
-# 使用 Google Gemini 生成回應
+# store the content of conversation memory as a prompt
+# use Google Gemini generate response
 response = model.generate_content([prompt])
 print("Generated Response:", response.text)
 
-# 將機器人的回應加入對話記錄
+# add the response to the conversation memory
 conversation_memory.append({"role": "assistant", "content": response})
 
 
