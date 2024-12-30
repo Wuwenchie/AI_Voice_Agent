@@ -1,4 +1,7 @@
 # AI_Voice_Agent
+**introduction**  
+Managing calls in a restaurant, hospital, or any service-oriented business can be a daunting task. The unpredictability of call volumes often leaves businesses with two options both of which are not ideal: overstaffing or making customers wait in long queues. Overstaffing drives up operational costs, while long wait times frustrate customers, reducing overall satisfaction.  
+This AI voice agent can be utilized for making orders in the restaurant. With the .mp3 file of recorder, it will generate a precisely response quickly.
 **vedio of testing** --> https://youtu.be/fioo61fusmI   
 ### Requirements  
 Python 3.11  
