@@ -12,7 +12,7 @@ device = "cuda:0" if torch.cuda.is_available() else "cpu"
 torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
 # 設定google api key
-GOOGLE_API_KEY="AIzaSyACXOtZ9FvtLvR0qwVnFVCtGkkEYgKMcII"    ## https://aistudio.google.com/app/apikey
+GOOGLE_API_KEY="your_google_api_key"    ## https://aistudio.google.com/app/apikey
 genai.configure(api_key=GOOGLE_API_KEY)
 
 
