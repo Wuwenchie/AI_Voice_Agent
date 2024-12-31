@@ -21,6 +21,7 @@ Audio-to-text : whisper-large-v3
 Gemini AI : gemini-1.5-pro
 
 ## Step to run  
+### voice_agent_en.py OR voice_agent_zh.py
 ### 1. Setup Google api key  
 ### 2. Create a virtualenv  
     conda create --name AI python=3.11  
@@ -38,4 +39,10 @@ If you just wnat to test the code, you can use the example .mp3 file and skip th
 ### 5. Run the code using below command (choose one)    
     python voice_agent_en.py  
 ***
-    python voice_agent_zh.py
+    python voice_agent_zh.py  
+***
+### voice_agent_gr.py
+### 1. Run the code
+    gradio voice_agent_gr.py  
+### 2. Open the URL (for example, http://127.0.0.1:7860/)  
+### 3. Try it !!
