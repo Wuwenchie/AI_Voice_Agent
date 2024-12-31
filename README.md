@@ -4,7 +4,7 @@ Managing calls in a restaurant, hospital, or any service-oriented business can b
 This AI voice agent can be utilized for making orders in the restaurant. With the .mp3 file of recorder, it will generate a precisely response quickly.  
 ### vedio of testing   
 voice_agent_zh.py --> https://youtu.be/fioo61fusmI   
-voice_agent_gr.py -->  
+voice_agent_gr.py --> https://youtube.com/shorts/eVWUdsj1nvU   
 ### Requirements  
 Python 3.11  
 Google api key  -->  https://aistudio.google.com/app/apikey  
