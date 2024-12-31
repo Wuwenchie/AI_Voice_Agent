@@ -47,5 +47,6 @@ If you just wnat to test the code, you can use the example .mp3 file and skip th
 ### voice_agent_gr.py
 ### 1. Run the code
     gradio voice_agent_gr.py  
-### 2. Open the URL (for example, http://127.0.0.1:7860/)  
+### 2. Open the URL 
+for example, http://127.0.0.1:7860/    
 ### 3. Try it !!
