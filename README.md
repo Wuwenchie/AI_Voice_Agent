@@ -17,6 +17,8 @@ struct
 pvrecorder  
 wave  
 pydub  
+gradio  
+numpy  
 ### Model  
 Audio-to-text : whisper-large-v3  
 Gemini AI : gemini-1.5-pro
